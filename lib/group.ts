@@ -12,12 +12,12 @@ export async function context() {
   const group:Group={id:raw.id,owner:raw.owner,name:raw.name,budget:raw.budget,topN:raw.top_n,round:raw.round,locked:raw.locked};
   return {user,db,group};
 }
-export async function state(options: { includeVoters?: boolean } = {}) {
+export async function state() {
   const {user,db,group}=await context();
   const {results}=await db.prepare("SELECT * FROM ballots WHERE round=? ORDER BY updated").bind(group.round).all<any>();
   const mine=results.find(r=>r.user===user.userId);
   const parsed=results.map(r=>({...r,parsed:JSON.parse(r.votes) as Vote[]}));
-  return {user:{name:user.displayName,isOwner:group.owner===user.userId},group:{...group,owner:""},votes:mine?JSON.parse(mine.votes):[],revision:mine?.revision??0,scores:rankBallots(parsed.map(r=>r.parsed),options.includeVoters?parsed.map(r=>r.name):[]),members:parsed.map(r=>({name:r.name,up:r.parsed.filter((v:Vote)=>v.direction===1).length,down:r.parsed.filter((v:Vote)=>v.direction===-1).length})),locked:!!group.locked};
+  return {user:{name:user.displayName,isOwner:group.owner===user.userId},group:{...group,owner:""},votes:mine?JSON.parse(mine.votes):[],revision:mine?.revision??0,scores:rankBallots(parsed.map(r=>r.parsed),parsed.map(r=>r.name)),members:parsed.map(r=>({name:r.name,up:r.parsed.filter((v:Vote)=>v.direction===1).length,down:r.parsed.filter((v:Vote)=>v.direction===-1).length})),locked:!!group.locked};
 }
 export function failure(e:unknown) {
   const message=(e as Error).message;

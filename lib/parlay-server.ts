@@ -6,7 +6,7 @@ import { ticketVersion, type ParlayTicket } from "./parlay-handoff";
 export async function currentTicket(): Promise<ParlayTicket> {
   // state() requires the current member's verified Site identity. No owner-only
   // restriction: every admitted league member can take the same ticket to Kalshi.
-  const current = await state({ includeVoters: true });
+  const current = await state();
   const picks = selectWinners(current.scores, current.group.topN);
   const conflicts = selectionConflicts(picks);
   const legs = picks.map(pick => ({

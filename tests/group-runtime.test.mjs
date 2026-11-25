@@ -124,6 +124,9 @@ test('ticket attribution requires sign-in, counts stacked votes by side, and exc
     assert.deepEqual(ticket.legs[0].voters,[{name:'Alex',up:3,down:0},{name:'jamie@example.test',up:0,down:1}]);
     assert.doesNotMatch(JSON.stringify(ticket),/private-|Previous voter/);
     const group=await mf.dispatchFetch('http://runtime.test/api/group',{headers:{'X-Fixture-User':'reader'}}).then(r=>r.json());
-    assert.ok(group.scores.every(score=>!('voters' in score)));
+    assert.deepEqual(group.scores.find(score=>score.side==='yes').voters,ticket.legs[0].voters);
+    assert.deepEqual(group.scores.find(score=>score.side==='no').voters,[{name:'Other',up:1,down:0}]);
+    assert.doesNotMatch(JSON.stringify(group),/private-|Previous voter/);
+    assert.equal((await mf.dispatchFetch('http://runtime.test/api/group')).status,401);
   }finally{await mf.dispose();}
 });

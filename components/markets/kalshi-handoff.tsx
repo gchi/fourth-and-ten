@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Check, CircleHelp, ChevronDown, Copy, Download, ExternalLink, Loader2, LockKeyhole, RefreshCw, Ticket, Wallet } from "lucide-react";
 import { handoffBlocker, ticketText, type ParlayTicket, type PreparedCombo } from "@/lib/parlay-handoff";
-import { money, type VoterAttribution } from "@/lib/domain";
+import { money } from "@/lib/domain";
 import { ComboHandoff } from "./combo-handoff";
+import { VoteAttribution } from "./vote-attribution";
 
 async function readJson<T>(path: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(path, { cache: "no-store", signal });
@@ -28,22 +29,6 @@ export function KalshiAccountInfo({ onReview }: { onReview: () => void }) {
 
 function ConnectionNote() {
   return <details className="connection-note"><summary><CircleHelp size={15}/>Can I link my account and submit here?</summary><p>The organizer’s server connection can prepare a shared combo, but personal account linking and direct checkout are not enabled here. Opening Kalshi does not connect your account here, and this site cannot see whether you signed in or placed a bet.</p><p>Kalshi’s current connector authorization supports portfolio access and alerts, but not order submission. Direct checkout needs a separate trading integration. <a href="https://docs.kalshi.com/getting_started/mcp" target="_blank" rel="noreferrer">Kalshi connection details <ArrowUpRight size={12}/></a></p></details>;
-}
-
-function TicketVoters({ voters = [] }: { voters?: VoterAttribution[] }) {
-  if (!voters.length) return null;
-  const up = voters.reduce((sum, voter) => sum + voter.up, 0);
-  const down = voters.reduce((sum, voter) => sum + voter.down, 0);
-  return <details className="ticket-voters">
-    <summary>Who voted <span>{up} up · {down} down</span><ChevronDown size={14}/></summary>
-    <ul>{voters.map((voter, index) => <li key={index}>
-      <span className="ticket-voter-name">{voter.name}</span>
-      <span className="ticket-voter-count">
-        {voter.up > 0 && <span>{voter.up} {voter.up === 1 ? "upvote" : "upvotes"}</span>}
-        {voter.down > 0 && <span>{voter.down} {voter.down === 1 ? "downvote" : "downvotes"}</span>}
-      </span>
-    </li>)}</ul>
-  </details>;
 }
 
 export function KalshiHandoff({ isOwner, busy, onLock, onSettings, onReopen }: {
@@ -125,7 +110,7 @@ export function KalshiHandoff({ isOwner, busy, onLock, onSettings, onReopen }: {
     {isOwner && !ticket.locked && <button className="button primary full" disabled={busy || ticket.legs.length < 2 || !!error || !!ticket.conflicts?.length} onClick={onLock}><LockKeyhole size={16}/>{busy ? "Locking…" : "Lock voting & finalize picks"}</button>}
     {ticket.locked && !ticket.conflicts?.length && <ComboHandoff key={ticket.version} ticket={ticket} ready={ready} isOwner={isOwner} onPrepared={setCombo}/>}
     {ticket.locked && isOwner && <div className="ticket-reopen"><button className="button white full" disabled={busy || !!error} onClick={() => onReopen(ticket.round)}><RefreshCw size={16}/>{busy ? "Reopening…" : "Reopen voting to edit picks"}</button><small>Keeps everyone’s votes. Review My votes, then lock the ticket again.</small></div>}
-    <div className="handoff-leg-list">{ticket.legs.map((leg, index) => <section className="handoff-leg" key={leg.key}><span className="pick-index">{index + 1}</span><div><div className="handoff-leg-title"><strong>{leg.title}</strong><b>{leg.side.toUpperCase()}</b></div><p>{leg.condition}</p><TicketVoters voters={leg.voters}/><details className="leg-market-details"><summary>Market details <ChevronDown size={12}/></summary><code>{leg.ticker}</code>{links[leg.key] && ready ? <a className="text-button" href={links[leg.key]} target="_blank" rel="noreferrer">Open {leg.side.toUpperCase()} on Kalshi <ExternalLink size={14}/></a> : <button className="text-button" disabled={!ready || !!pending} onClick={() => prepareLink(leg.key)}>{pending === leg.key ? <Loader2 size={14} className="spinning"/> : <ExternalLink size={14}/>}Get individual market link</button>}</details></div></section>)}</div>
+    <div className="handoff-leg-list">{ticket.legs.map((leg, index) => <section className="handoff-leg" key={leg.key}><span className="pick-index">{index + 1}</span><div><div className="handoff-leg-title"><strong>{leg.title}</strong><b>{leg.side.toUpperCase()}</b></div><p>{leg.condition}</p><VoteAttribution voters={leg.voters}/><details className="leg-market-details"><summary>Market details <ChevronDown size={12}/></summary><code>{leg.ticker}</code>{links[leg.key] && ready ? <a className="text-button" href={links[leg.key]} target="_blank" rel="noreferrer">Open {leg.side.toUpperCase()} on Kalshi <ExternalLink size={14}/></a> : <button className="text-button" disabled={!ready || !!pending} onClick={() => prepareLink(leg.key)}>{pending === leg.key ? <Loader2 size={14} className="spinning"/> : <ExternalLink size={14}/>}Get individual market link</button>}</details></div></section>)}</div>
     {linkError && <p className="handoff-error" role="alert">{linkError}</p>}
     <details className="handoff-export-details"><summary>Copy or download ticket <ChevronDown size={14}/></summary>
     <div className="modal-actions handoff-export"><button className="button white" disabled={!!error || !ticket.legs.length} onClick={copyTicket}><Copy size={16}/>{ticket.locked ? "Copy final picks" : "Copy draft picks"}</button><button className="button white" disabled={!!error || !ticket.legs.length} onClick={download}><Download size={16}/>Download ticket</button></div>

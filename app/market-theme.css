@@ -434,13 +434,12 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .remaining-label { font-size: 11px; }
 }
 
-/* Compact, optional attribution under each ticket selection. */
-.ticket-voters { margin: 12px 0; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
-.ticket-voters summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; cursor: pointer; font-size: .875rem; list-style: none; }
-.ticket-voters summary::-webkit-details-marker { display: none; }
-.ticket-voters summary > span { margin-left: auto; color: var(--muted); }
-.ticket-voters[open] summary > svg { transform: rotate(180deg); }
-.ticket-voters ul { list-style: none; padding: 0; margin: 8px 0 0; }
-.ticket-voters li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 8px 0; font-size: .875rem; border-top: 1px solid var(--line); }
-.ticket-voter-name { flex: 1 1 140px; min-width: 0; overflow-wrap: anywhere; }
-.ticket-voter-count { display: flex; gap: 8px; color: var(--muted); font-variant-numeric: tabular-nums; }
+/* Voter names stay visible in the ticket, review and leaderboard. */
+.vote-attribution { display: grid; gap: 8px; margin-top: 10px; }
+.vote-attribution-group { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 8px; font-size: .875rem; line-height: 1.5; }
+.vote-attribution .vote-direction { display: inline-flex; align-items: center; gap: 3px; min-width: 52px; margin: 0; font-size: .875rem; color: var(--muted); }
+.vote-attribution ul { display: flex; flex: 1 1 160px; flex-wrap: wrap; gap: 6px; min-width: 0; list-style: none; padding: 0; margin: 0; }
+.vote-attribution li { display: inline-flex; align-items: baseline; gap: 6px; max-width: 100%; padding: 3px 7px; border-radius: 6px; background: var(--surface-raised); color: var(--ink); }
+.vote-attribution-name { min-width: 0; overflow-wrap: anywhere; }
+.vote-attribution-count { flex-shrink: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+.leaderboard-row > div:nth-child(2) { min-width: 0; }
