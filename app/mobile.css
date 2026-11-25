@@ -1,0 +1,320 @@
+/* Phone and tablet layouts. Imported after the shared desktop styling. */
+.mobile-bottom-nav,
+.mobile-nav-close {
+  display:none;
+}
+.modal-toast {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  position:sticky;
+  bottom:0;
+  padding:12px 14px;
+  margin-top:20px;
+  background:var(--surface-hover);
+  color:var(--ink);
+  border-radius:9px;
+  font-size:13px;
+  line-height:1.6;
+  z-index:3;
+}
+.modal-toast > span { flex:1; min-width:0; overflow-wrap:anywhere; }
+.modal-toast > button { display:grid; place-items:center; width:44px; min-height:44px; flex-shrink:0; }
+
+@media (max-width:820px) {
+  html {
+    scroll-padding-top:80px;
+    scroll-padding-bottom:calc(96px + env(safe-area-inset-bottom));
+    -webkit-text-size-adjust:100%;
+  }
+  body { font-size:16px; }
+  .app-shell { min-height:100dvh; }
+  .workspace { min-width:0; }
+  main {
+    padding:24px max(16px, env(safe-area-inset-right)) calc(94px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  button, a { touch-action:manipulation; }
+  button, .button, .icon-button, summary { min-height:44px; }
+  .icon-button { min-width:44px; }
+  .button, .button.small { min-height:46px; font-size:14px; }
+  .text-button { min-height:44px; font-size:13px; }
+  input, select, textarea { font-size:16px !important; }
+  input, select { scroll-margin-block:100px; }
+  .topbar {
+    position:sticky;
+    top:0;
+    z-index:20;
+    height:auto;
+    min-height:64px;
+    padding:max(7px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 7px max(12px, env(safe-area-inset-left));
+    background:var(--surface);
+    gap:8px;
+  }
+  .breadcrumb { gap:6px; min-width:0; font-size:13px; }
+  .breadcrumb > span, .breadcrumb > svg { display:none; }
+  .breadcrumb > strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .topbar-right { flex-shrink:0; }
+  .topbar-right .round-pill { display:none; }
+  .topbar-right .button { padding-inline:11px; font-size:12px; }
+  .page-heading { margin-bottom:22px; }
+  .page-heading h1 { font-size:clamp(25px, 5.7vw, 33px); line-height:1.3; letter-spacing:-.9px; }
+  .page-heading p { font-size:14px; max-width:540px; line-height:1.8; color:var(--ink); }
+  .page-heading .eyebrow { font-size:10px; line-height:1.6; }
+  .dashboard-grid { display:flex; flex-direction:column; gap:28px; }
+  .main-column, .right-column { width:100%; min-width:0; }
+  .hero-card { height:auto; min-height:236px; }
+  .hero-copy { padding:22px; max-width:65%; }
+  .hero-copy h2 { font-size:28px; }
+  .hero-copy p { font-size:13px; line-height:1.8; }
+  .hero-copy button { min-height:44px; font-size:13px; margin-top:8px; }
+  .hero-tag { font-size:9px; line-height:1.7; }
+  .playbook { width:38%; right:4px; pointer-events:none; }
+
+  .stat-row { grid-template-columns:repeat(2, minmax(0, 1fr)); padding:16px 0 0; }
+  .vote-budget { padding:0 16px 16px; gap:10px; }
+  .stat-icon { display:grid; width:32px; height:34px; }
+  .stat-title { font-size:12px; color:var(--muted); white-space:normal; flex-wrap:wrap; gap:5px; }
+  .stat-title strong { font-size:20px; }
+  .stat-title strong small { font-size:12px; }
+  .vote-dots i { width:18px; height:5px; }
+  .lock-budget {
+    grid-column:1 / -1;
+    padding:13px 16px;
+    border-left:0;
+    border-top:1px solid var(--line);
+    gap:10px;
+  }
+  .lock-budget > div { display:flex; align-items:center; flex-wrap:wrap; gap:6px 14px; }
+  .lock-budget strong { margin:0; font-size:12px; white-space:normal; line-height:1.6; }
+  .market-section, .results-section { margin-top:26px; scroll-margin-top:85px; }
+  .section-title { flex-wrap:wrap; gap:7px; margin-bottom:16px; }
+  .section-title h2 { font-size:20px; }
+  .section-title h2 > span { font-size:11px; }
+  .feed-status { min-height:44px; font-size:11px; padding:0 5px; color:var(--green); }
+  .odds-board-banner { padding:15px; gap:10px; }
+  .odds-board-banner strong { font-size:13px; line-height:1.6; }
+  .odds-board-banner small { font-size:12px; line-height:1.6; color:var(--muted); }
+  .category-tabs { gap:3px; overscroll-behavior-x:contain; padding:2px; }
+  .category-tabs button, .category-tabs button:first-child { min-height:46px; padding:10px 13px; font-size:13px; }
+  .filter-row { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:10px; }
+  .search-box { grid-column:1 / -1; min-width:0; min-height:48px; padding:3px 12px; }
+  .search-box input { min-height:44px; }
+  .search-box input::placeholder { color:var(--muted); }
+  .search-box button { min-width:44px; align-items:center; justify-content:center; }
+  .select-control { min-width:0; min-height:48px; padding-inline:12px; gap:8px; }
+  .select-control > svg:first-child { display:block; }
+  .select-control select, .select-control:last-child select { width:100%; flex:1; min-height:46px; color:var(--ink); }
+  .explore-row { display:grid; grid-template-columns:minmax(0, 1fr); gap:10px; margin:10px 0 18px; }
+  .explore-row label { gap:8px; min-width:0; min-height:48px; border:1px solid var(--line); border-radius:7px; background:var(--surface); padding:0 12px; }
+  .explore-row select { max-width:100%; width:100%; min-height:46px; color:var(--ink); text-overflow:ellipsis; }
+  .explore-row > select { border:1px solid var(--line); background:var(--surface); border-radius:7px; padding-inline:12px; }
+  .market-grid { grid-template-columns:minmax(0, 1fr); gap:18px; }
+  .market-card { padding:18px; }
+  .card-top { gap:7px; flex-wrap:wrap; }
+  .category-badge { font-size:11px; padding:6px 8px; }
+  .card-date { font-size:11px; color:var(--muted); }
+  .market-title { gap:12px; margin:15px 0 18px; align-items:flex-start; }
+  .market-title > div { min-width:0; }
+  .market-title h3 { display:block; font-size:18px; line-height:1.5; overflow-wrap:anywhere; -webkit-line-clamp:unset; }
+  .market-title > div > span { font-size:12px; line-height:1.8; overflow-wrap:anywhere; color:var(--muted); }
+  .outcomes.explained-outcomes { gap:10px; }
+  .outcomes.explained-outcomes button { padding:14px; min-height:105px; }
+  .outcomes.explained-outcomes .outcome-name { font-size:14px; }
+  .outcome-odds strong { font-size:27px; max-width:100%; overflow-wrap:anywhere; }
+  .outcome-odds small { font-size:12px; }
+  .pick-meaning > span { font-size:10px; }
+  .pick-meaning > p { font-size:15px; line-height:1.8; color:var(--ink); }
+  .chance-heading, .chance-heading strong, .chance-heading > span { font-size:12px; }
+  .chance-bar { height:8px; }
+  .chance-bar > i { height:8px; }
+  .odds-definition { font-size:13px; line-height:1.9; }
+  .contract-example { padding:12px; }
+  .contract-example > span { font-size:9px; }
+  .contract-example > p { font-size:12px; line-height:1.9; }
+  .odds-caveat, .stale-label { font-size:11px; color:var(--muted); }
+  .odds-help { min-height:44px; font-size:13px; }
+  .card-settlement { font-size:13px; margin-top:4px; }
+  .card-settlement summary { min-height:44px; padding-block:11px; }
+  .card-settlement > p { font-size:13px; overflow-wrap:anywhere; }
+  .card-settlement > .text-button { font-size:12px; }
+  .vote-allocation { margin-top:15px; font-size:13px; line-height:1.8; }
+  .vote-allocation b { min-width:28px; height:28px; font-size:15px; }
+  .vote-allocation small { font-size:11px; }
+  .market-card .stacked-voting { display:flex; flex-direction:column; align-items:stretch; gap:12px; }
+  .stacked-voting .vote-buttons { display:grid; grid-template-columns:46px minmax(0, 1fr) minmax(75px, .7fr); gap:8px; width:100%; }
+  .market-card .vote-buttons button, .market-card .vote-buttons .remove-upvote { min-width:0; min-height:48px; padding:10px 8px; font-size:13px; }
+  .market-card .net-score { align-self:flex-end; font-size:12px; }
+  .stack-vote-hint { font-size:11px; line-height:1.9; color:var(--muted); }
+  .load-more { min-height:48px; font-size:14px; }
+  .market-footnote { font-size:11px; line-height:1.8; gap:8px; }
+  .market-footnote > span { margin-left:0; display:block; width:100%; font-size:10px; }
+  .right-column { display:flex; flex-direction:column; }
+  #group-parlay { scroll-margin-top:90px; }
+  .slip-header { padding:24px; }
+  .slip-header h2 { font-size:26px; }
+  .slip-header .eyebrow { font-size:10px; }
+  .slip-header p, .slip-summary > div > span { font-size:12px; }
+  .slip-body { padding:18px 23px 24px; }
+  .slip-label { font-size:10px; }
+  .slip-label > span { font-size:9px; }
+  .slip-pick strong { font-size:14px; overflow-wrap:anywhere; }
+  .slip-pick div > span { font-size:11px; }
+  .slip-summary button { min-width:44px; min-height:44px; }
+  .empty-slip h3 { font-size:15px; }
+  .empty-slip p, .open-slot > p { font-size:12px; }
+  .slip-total, .slip-total strong { font-size:12px; flex-wrap:wrap; }
+  .slip-disclaimer { font-size:12px; line-height:1.9; }
+  .slip .button { min-height:48px; font-size:14px; }
+  .slip-footer { font-size:11px; }
+  .crew-card h3 { font-size:16px; }
+  .crew-card p, .quick-rules p { font-size:13px; }
+  .crew-card .text-button, .quick-rules strong { font-size:13px; }
+  .avatars > button { width:44px; min-height:44px; }
+  .page-footer { flex-wrap:wrap; gap:10px; font-size:11px; line-height:1.8; margin-top:20px; }
+  .page-footer a { min-height:44px; }
+  .results-note { font-size:13px; align-items:flex-start; }
+  .leaderboard-row { display:grid; grid-template-columns:30px minmax(0, 1fr); gap:12px; padding:16px; }
+  .leaderboard-row strong { font-size:14px; line-height:1.7; overflow-wrap:anywhere; }
+  .mini-label { font-size:11px; }
+  .leaderboard-tally { grid-column:2; justify-content:flex-end; gap:15px; }
+  .leaderboard-tally > span { font-size:12px; }
+  .quiet { font-size:12px; }
+  .empty-state h3 { font-size:17px; }
+  .empty-state p { font-size:13px; }
+  .empty-state .button { font-size:13px; }
+  .notice { flex-wrap:wrap; font-size:13px; gap:9px; }
+  .notice > span { min-width:0; overflow-wrap:anywhere; }
+  .notice a, .notice button { min-height:44px; }
+
+  .sidebar {
+    width:min(320px, calc(100vw - 44px));
+    max-height:100dvh;
+    padding:max(23px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+  }
+  .mobile-nav-close { display:grid; position:absolute; top:max(11px, env(safe-area-inset-top)); right:9px; }
+  .sidebar .brand { padding-right:35px; padding-bottom:25px; font-size:24px; gap:8px; }
+  .sidebar .brand-icon { flex-shrink:0; }
+  .club-switch { margin-bottom:22px; padding:13px 10px; flex-shrink:0; }
+  .club-switch strong { font-size:13px; }
+  .club-switch div > span { font-size:8px; }
+  .nav-label { font-size:10px; }
+  .nav-item { min-height:48px; font-size:14px; }
+  .nav-count { font-size:11px; }
+  .sidebar-bottom { padding-top:22px; }
+  .ritual-card { display:none; }
+  .profile strong { font-size:13px; }
+  .profile div > span { font-size:11px; }
+  .mobile-bottom-nav {
+    position:fixed;
+    bottom:0;
+    inset-inline:0;
+    z-index:22;
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:4px;
+    padding:7px max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    border-top:1px solid var(--line);
+    background:var(--surface);
+    box-shadow:0 -5px 18px #00000033;
+  }
+  .mobile-bottom-nav button { min-width:0; min-height:58px; padding:7px 3px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; border-radius:8px; color:var(--muted); }
+  .mobile-bottom-nav button.selected { color:var(--ink); background:var(--surface-raised); }
+  .mobile-bottom-nav button > span { display:inline-flex; align-items:center; gap:4px; font-size:11px; line-height:1.3; white-space:nowrap; }
+  .mobile-bottom-nav b { font-size:9px; font-weight:500; background:var(--surface-raised); color:var(--muted); padding:1px 4px; border-radius:4px; }
+  .toast { bottom:calc(90px + env(safe-area-inset-bottom)); padding:12px; font-size:12px; line-height:1.7; width:calc(100% - 32px); }
+  .toast > button { min-width:44px; min-height:44px; justify-content:center; align-items:center; margin-left:0; }
+  .modal {
+    width:min(580px, calc(100% - 24px));
+    max-height:calc(100dvh - env(safe-area-inset-top) - 24px);
+    max-width:100%;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+  }
+  .modal-content { padding:22px; }
+  .modal-header { position:sticky; top:-22px; z-index:2; background:var(--surface); padding:17px 0 14px; margin-top:-17px; margin-bottom:16px; gap:10px; }
+  .modal-header h2 { font-size:23px; line-height:1.5; overflow-wrap:anywhere; }
+  .modal-header > div { min-width:0; }
+  .modal-header .eyebrow { font-size:10px; }
+  .modal-header .icon-button { flex-shrink:0; }
+  .modal-intro { font-size:14px; line-height:1.9; }
+  .form-label { font-size:11px; line-height:1.7; }
+  .form-label input { width:100%; min-width:0; max-width:100%; min-height:48px; padding:12px; }
+  .form-columns { gap:16px; }
+  .modal-small, .round-controls p { font-size:12px; }
+  .round-controls strong { font-size:14px; }
+  .modal-actions { gap:10px; }
+  .modal .notice { font-size:13px; }
+  .member-row { display:grid; grid-template-columns:34px minmax(0, 1fr) auto; gap:10px; }
+  .member-row > strong { font-size:13px; line-height:1.7; }
+  .member-row > span:not(.avatar) { font-size:12px; }
+  .member-row > span:last-child { grid-column:3; }
+  .rule { gap:14px; }
+  .rule h3 { font-size:15px; }
+  .rule p, .rules-text { font-size:13px; line-height:1.9; overflow-wrap:anywhere; }
+  .review-leg strong { font-size:14px; line-height:1.7; }
+  .review-leg small { font-size:11px; }
+  .review-condition { font-size:12px; }
+  .review-leg { gap:10px; }
+  .review-stake > p { font-size:12px; }
+  .detail-list { font-size:12px; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:14px; }
+  .settlement-note { font-size:12px; }
+  .odds-lesson p, .odds-guide-note, .odds-faq p { font-size:13px; }
+  .odds-lesson > div > span { font-size:9px; line-height:1.8; }
+  .odds-faq summary { min-height:48px; padding-block:10px; font-size:14px; }
+  .odds-faq a { min-height:44px; font-size:12px; }
+  .calculator-presets button { min-width:64px; min-height:44px; font-size:13px; }
+  .calculator-hint, .calculated-example > p { font-size:12px; }
+  .calculated-example dl { font-size:12px; gap:14px; }
+  .calculator-heading > h3 { font-size:16px; }
+}
+
+@media (max-width:480px) {
+  .hero-copy { max-width:100%; padding:21px; }
+  .hero-copy h2 { font-size:29px; }
+  .hero-copy p { max-width:100%; }
+  .playbook { display:none; }
+  .stat-row .stat-icon { display:none; }
+  .vote-budget { padding-inline:14px; }
+  .stat-title { font-size:12px; }
+  .form-columns { grid-template-columns:minmax(0, 1fr); gap:16px; }
+  .form-columns .form-label { margin:0; }
+  .modal { width:100%; max-height:calc(100dvh - max(12px, env(safe-area-inset-top))); margin:auto 0 0; border-radius:18px 18px 0 0; }
+  .modal-content { padding:20px 18px max(24px, env(safe-area-inset-bottom)); }
+  .modal-header { top:-20px; }
+  .modal-header h2 { font-size:22px; }
+  .modal-actions { flex-direction:column; }
+  .odds-lesson { grid-template-columns:minmax(0, 1fr); gap:12px; }
+  .odds-lesson > div { padding:17px; }
+  .odds-lesson strong { font-size:32px; }
+  .odds-lesson p { font-size:13px; }
+  .odds-calculator { padding:16px; }
+  .calculator-heading { flex-wrap:wrap; }
+  .calculated-example dl { grid-template-columns:minmax(0, 1fr) auto; font-size:11px; }
+  .sidebar .brand { font-size:22px; }
+}
+
+@media (max-width:360px) {
+  main { padding-inline:max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right)); }
+  .market-card { padding:14px; }
+  .market-symbol { display:none; }
+  .market-title h3 { font-size:17px; }
+  .card-date { font-size:10px; }
+  .category-badge { font-size:10px; }
+  .outcomes.explained-outcomes button { padding:12px; }
+  .outcome-odds strong { font-size:22px; }
+  .outcome-odds small { font-size:11px; }
+  .stacked-voting .vote-buttons { grid-template-columns:44px minmax(0, 1fr) 70px; gap:6px; }
+  .market-card .vote-buttons button { font-size:12px; padding-inline:6px; }
+  .mobile-bottom-nav { gap:0; padding-inline:5px; }
+  .mobile-bottom-nav button > span { font-size:10px; }
+  .sidebar .brand { font-size:20px; gap:4px; }
+  .sidebar .brand-icon, .sidebar .brand-icon svg { width:24px; }
+}
+
+@supports selector(body:has(input:focus)) {
+  @media (max-width:820px) {
+    body:has(input:focus, select:focus, textarea:focus) .mobile-bottom-nav { display:none; }
+  }
+}
